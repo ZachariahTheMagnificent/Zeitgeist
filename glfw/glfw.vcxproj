@@ -19,29 +19,35 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="glfw\internal\context.c" />
-    <ClCompile Include="glfw\internal\egl_context.c" />
-    <ClCompile Include="glfw\internal\init.c" />
-    <ClCompile Include="glfw\internal\input.c" />
-    <ClCompile Include="glfw\internal\monitor.c" />
-    <ClCompile Include="glfw\internal\vulkan.c" />
-    <ClCompile Include="glfw\internal\wgl_context.c" />
-    <ClCompile Include="glfw\internal\win32_init.c" />
-    <ClCompile Include="glfw\internal\win32_joystick.c" />
-    <ClCompile Include="glfw\internal\win32_monitor.c" />
-    <ClCompile Include="glfw\internal\win32_time.c" />
-    <ClCompile Include="glfw\internal\win32_tls.c" />
-    <ClCompile Include="glfw\internal\win32_window.c" />
-    <ClCompile Include="glfw\internal\window.c" />
+    <ClInclude Include="source\glfw\Application.hpp" />
+    <ClInclude Include="source\glfw\CPPWindow.hpp" />
+    <ClInclude Include="source\glfw\c\include\GLFW\glfw3.h" />
+    <ClInclude Include="source\glfw\c\include\GLFW\glfw3native.h" />
+    <ClInclude Include="source\glfw\c\src\egl_context.h" />
+    <ClInclude Include="source\glfw\c\src\internal.h" />
+    <ClInclude Include="source\glfw\c\src\wgl_context.h" />
+    <ClInclude Include="source\glfw\c\src\win32_joystick.h" />
+    <ClInclude Include="source\glfw\c\src\win32_platform.h" />
+    <ClInclude Include="source\glfw\Keyboard.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="glfw\include\GLFW\glfw3.h" />
-    <ClInclude Include="glfw\include\GLFW\glfw3native.h" />
-    <ClInclude Include="glfw\internal\egl_context.h" />
-    <ClInclude Include="glfw\internal\internal.h" />
-    <ClInclude Include="glfw\internal\wgl_context.h" />
-    <ClInclude Include="glfw\internal\win32_joystick.h" />
-    <ClInclude Include="glfw\internal\win32_platform.h" />
+    <ClCompile Include="source\glfw\Application.cpp" />
+    <ClCompile Include="source\glfw\CPPWindow.cpp" />
+    <ClCompile Include="source\glfw\c\src\context.c" />
+    <ClCompile Include="source\glfw\c\src\egl_context.c" />
+    <ClCompile Include="source\glfw\c\src\init.c" />
+    <ClCompile Include="source\glfw\c\src\input.c" />
+    <ClCompile Include="source\glfw\c\src\monitor.c" />
+    <ClCompile Include="source\glfw\c\src\vulkan.c" />
+    <ClCompile Include="source\glfw\c\src\wgl_context.c" />
+    <ClCompile Include="source\glfw\c\src\win32_init.c" />
+    <ClCompile Include="source\glfw\c\src\win32_joystick.c" />
+    <ClCompile Include="source\glfw\c\src\win32_monitor.c" />
+    <ClCompile Include="source\glfw\c\src\win32_time.c" />
+    <ClCompile Include="source\glfw\c\src\win32_tls.c" />
+    <ClCompile Include="source\glfw\c\src\win32_window.c" />
+    <ClCompile Include="source\glfw\c\src\window.c" />
+    <ClCompile Include="source\glfw\Keyboard.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{FE79467A-7AFE-42E0-BCB7-87402B13060F}</ProjectGuid>

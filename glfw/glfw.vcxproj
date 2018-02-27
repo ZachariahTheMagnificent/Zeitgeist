@@ -28,7 +28,9 @@
     <ClInclude Include="source\glfw\c\src\wgl_context.h" />
     <ClInclude Include="source\glfw\c\src\win32_joystick.h" />
     <ClInclude Include="source\glfw\c\src\win32_platform.h" />
-    <ClInclude Include="source\glfw\Keyboard.hpp" />
+    <ClInclude Include="source\glfw\Joystick.hpp" />
+    <ClInclude Include="source\glfw\Key.hpp" />
+    <ClInclude Include="source\glfw\KeyEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\glfw\Application.cpp" />
@@ -47,7 +49,9 @@
     <ClCompile Include="source\glfw\c\src\win32_tls.c" />
     <ClCompile Include="source\glfw\c\src\win32_window.c" />
     <ClCompile Include="source\glfw\c\src\window.c" />
-    <ClCompile Include="source\glfw\Keyboard.cpp" />
+    <ClCompile Include="source\glfw\Joystick.cpp" />
+    <ClCompile Include="source\glfw\Key.cpp" />
+    <ClCompile Include="source\glfw\KeyEvent.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{FE79467A-7AFE-42E0-BCB7-87402B13060F}</ProjectGuid>

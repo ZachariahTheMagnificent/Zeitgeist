@@ -1,30 +1,16 @@
 #pragma once
 #include "c/include/GLFW/glfw3.h"
+#include "Joystick.hpp"
 #include <memory>
 
 namespace glfw
 {
-	class Joystick
-	{
-	public:
-		static constexpr std::size_t maximum_total = GLFW_JOYSTICK_LAST;
-
-		Joystick ( ) = default;
-		Joystick ( const char*const name, const float*const axes_begin, const float*const axes_end,
-				   const unsigned char*const buttons_begin, const unsigned char*const buttons_end );
-
-		const char* name { };
-		const float* axes_begin { };
-		const float* axes_end { };
-		const unsigned char* buttons_begin { };
-		const unsigned char* buttons_end { };
-	};
-
 	class Application
 	{
 	public:
-		static std::unique_ptr<Application> create_instance ( );
+		static constexpr std::size_t maximum_joysticks = GLFW_JOYSTICK_LAST + 1;
 
+		Application ( );
 		~Application ( );
 
 		Application( const Application& ) = delete;
@@ -32,9 +18,8 @@ namespace glfw
 
 		void poll_events ( );
 
-		Joystick GetJoystick ( const std::size_t id );
-
 	private:
-		Application ( );
+		virtual void on_joystick_connected ( const std::size_t id );
+		virtual void on_joystick_disconnected ( const std::size_t id );
 	};
 }

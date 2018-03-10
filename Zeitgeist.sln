@@ -5,10 +5,16 @@ VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Zeitgeist", "Zeitgeist\Zeitgeist.vcxproj", "{94DA187D-4B78-443F-9BAD-2C4EE47DB1B1}"
 	ProjectSection(ProjectDependencies) = postProject
+		{61FF9F39-7F48-46C2-BA48-623D6F5C277D} = {61FF9F39-7F48-46C2-BA48-623D6F5C277D}
 		{FE79467A-7AFE-42E0-BCB7-87402B13060F} = {FE79467A-7AFE-42E0-BCB7-87402B13060F}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "glfw", "glfw\glfw.vcxproj", "{FE79467A-7AFE-42E0-BCB7-87402B13060F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{61FF9F39-7F48-46C2-BA48-623D6F5C277D} = {61FF9F39-7F48-46C2-BA48-623D6F5C277D}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common", "common\common.vcxproj", "{61FF9F39-7F48-46C2-BA48-623D6F5C277D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,6 +40,14 @@ Global
 		{FE79467A-7AFE-42E0-BCB7-87402B13060F}.Release|x64.Build.0 = Release|x64
 		{FE79467A-7AFE-42E0-BCB7-87402B13060F}.Release|x86.ActiveCfg = Release|Win32
 		{FE79467A-7AFE-42E0-BCB7-87402B13060F}.Release|x86.Build.0 = Release|Win32
+		{61FF9F39-7F48-46C2-BA48-623D6F5C277D}.Debug|x64.ActiveCfg = Debug|x64
+		{61FF9F39-7F48-46C2-BA48-623D6F5C277D}.Debug|x64.Build.0 = Debug|x64
+		{61FF9F39-7F48-46C2-BA48-623D6F5C277D}.Debug|x86.ActiveCfg = Debug|Win32
+		{61FF9F39-7F48-46C2-BA48-623D6F5C277D}.Debug|x86.Build.0 = Debug|Win32
+		{61FF9F39-7F48-46C2-BA48-623D6F5C277D}.Release|x64.ActiveCfg = Release|x64
+		{61FF9F39-7F48-46C2-BA48-623D6F5C277D}.Release|x64.Build.0 = Release|x64
+		{61FF9F39-7F48-46C2-BA48-623D6F5C277D}.Release|x86.ActiveCfg = Release|Win32
+		{61FF9F39-7F48-46C2-BA48-623D6F5C277D}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

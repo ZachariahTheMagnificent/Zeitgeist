@@ -70,19 +70,19 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LibraryPath>$(SolutionDir)$(Configuration);$(SolutionDir)vulkan\libraries\x86;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)glfw\source;$(SolutionDir)vulkan\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)vulkan\include;$(SolutionDir)glfw\source;$(SolutionDir)common\source;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LibraryPath>$(SolutionDir)$(Configuration);$(SolutionDir)vulkan\libraries\x86;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)glfw\source;$(SolutionDir)vulkan\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)vulkan\include;$(SolutionDir)glfw\source;$(SolutionDir)common\source;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LibraryPath>$(SolutionDir)x64\$(Configuration);$(SolutionDir)vulkan\libraries\x64;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)glfw\source;$(SolutionDir)vulkan\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)vulkan\include;$(SolutionDir)glfw\source;$(SolutionDir)common\source;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LibraryPath>$(SolutionDir)x64\$(Configuration);$(SolutionDir)vulkan\libraries\x64;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)glfw\source;$(SolutionDir)vulkan\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)vulkan\include;$(SolutionDir)glfw\source;$(SolutionDir)common\source;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -90,6 +90,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <PreprocessorDefinitions>_DEBUG;WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>glfw.lib;vulkan-1.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -100,6 +101,8 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>glfw.lib;vulkan-1.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -113,6 +116,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <PreprocessorDefinitions>NDEBUG;WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -127,6 +131,8 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

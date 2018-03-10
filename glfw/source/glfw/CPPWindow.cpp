@@ -93,7 +93,8 @@ namespace glfw
 	Window::Size Window::size ( ) const
 	{
 		Size size;
-		glfwGetWindowSize ( handle_, size.data ( ) + 0, size.data ( ) + 1 );
+		auto& [ width, height ] = size;
+		glfwGetWindowSize ( handle_, &width, &height );
 		return size;
 	}
 

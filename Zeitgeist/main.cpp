@@ -40,12 +40,11 @@ class TestApp : public glfw::Application
 public:
 	TestApp ( )
 	{
+		init_vulkan ( );
 	}
 
 	void run ( )
 	{
-		initVulkan ( );
-
 		while ( !window.is_set_to_close ( ) )
 		{
 			poll_events ( );
@@ -53,7 +52,7 @@ public:
 	}
 
 private:
-	void initVulkan ( )
+	void init_vulkan ( )
 	{
 		auto info = vk::ApplicationInfo { "Test App", VK_MAKE_VERSION ( 1, 0, 0 ), "Zeitgeist", VK_MAKE_VERSION ( 1, 0, 0 ), VK_API_VERSION_1_0 };
 

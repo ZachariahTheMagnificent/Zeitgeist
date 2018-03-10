@@ -1,4 +1,5 @@
 #pragma once
+#include <vulkan/vulkan.hpp>
 #include "c/include/GLFW/glfw3.h"
 #include "Joystick.hpp"
 #include <memory>

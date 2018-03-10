@@ -3,7 +3,6 @@
 #include <functional>
 #include <memory>
 
-#include <vulkan/vulkan.hpp>
 #include <glfw/Application.hpp>
 #include <glfw/CPPWindow.hpp>
 

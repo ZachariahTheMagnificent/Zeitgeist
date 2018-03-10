@@ -5,6 +5,35 @@
 
 #include <glfw/Application.hpp>
 #include <glfw/CPPWindow.hpp>
+#include <common/Debugging.h>
+
+VKAPI_ATTR VkResult VKAPI_CALL vkCreateDebugReportCallbackEXT (
+	VkInstance                                  instance,
+	const VkDebugReportCallbackCreateInfoEXT*   pCreateInfo,
+	const VkAllocationCallbacks*                pAllocator,
+	VkDebugReportCallbackEXT*                   pCallback )
+{
+	auto func = ( PFN_vkCreateDebugReportCallbackEXT ) vkGetInstanceProcAddr ( instance, "vkCreateDebugReportCallbackEXT" );
+	if ( func != nullptr )
+	{
+		return func ( instance, pCreateInfo, pAllocator, pCallback );
+	}
+	else
+	{
+		return VK_ERROR_EXTENSION_NOT_PRESENT;
+	}
+}
+VKAPI_ATTR void VKAPI_CALL vkDestroyDebugReportCallbackEXT (
+	VkInstance                                  instance,
+	VkDebugReportCallbackEXT                    callback,
+	const VkAllocationCallbacks*                pAllocator )
+{
+	auto func = ( PFN_vkDestroyDebugReportCallbackEXT ) vkGetInstanceProcAddr ( instance, "vkDestroyDebugReportCallbackEXT" );
+	if ( func != nullptr )
+	{
+		func ( instance, callback, pAllocator );
+	}
+}
 
 class TestApp : public glfw::Application
 {
@@ -26,25 +55,74 @@ public:
 private:
 	void initVulkan ( )
 	{
-		std::vector<int> f;
 		auto info = vk::ApplicationInfo { "Test App", VK_MAKE_VERSION ( 1, 0, 0 ), "Zeitgeist", VK_MAKE_VERSION ( 1, 0, 0 ), VK_API_VERSION_1_0 };
-		uint32_t glfwextensioncount = 0;
-		const char** glfwextensions;
 
-		glfwextensions = glfwGetRequiredInstanceExtensions ( &glfwextensioncount );
+		uint32_t glfw_extension_count = 0;
+		const char** glfw_extension_names = glfwGetRequiredInstanceExtensions ( &glfw_extension_count );
 
-		auto create_instance_info = vk::InstanceCreateInfo { { }, &info, 0, nullptr, glfwextensioncount, glfwextensions };
-		auto instance = vk::createInstanceUnique ( create_instance_info );
+		std::vector<const char*> requested_layer_names;
+		auto requested_extension_names = std::vector<const char*> ( glfw_extension_names, glfw_extension_names + glfw_extension_count );
 
-		auto extensions = vk::enumerateInstanceExtensionProperties ( nullptr );
-
-		std::cout << extensions.size ( ) << " extensions supported" << std::endl;
-
-		for ( auto& extension : extensions )
+		if constexpr ( common::debugging::is_enabled )
 		{
-			std::cout << extension.extensionName << '\n';
+			requested_layer_names.push_back ( "VK_LAYER_LUNARG_standard_validation" );
+			requested_extension_names.push_back ( "VK_EXT_debug_report" );
 		}
 
+		auto extensions = vk::enumerateInstanceExtensionProperties ( nullptr );
+		auto layers = vk::enumerateInstanceLayerProperties ( );
+
+		if constexpr ( common::debugging::is_enabled )
+		{
+			std::cout << extensions.size ( ) << " extensions supported" << std::endl;
+
+			for ( auto& extension : extensions )
+			{
+				std::cout << extension.extensionName << '\n';
+			}
+
+			std::cout << '\n';
+
+			std::cout << layers.size ( ) << " layers supported" << std::endl;
+
+			for ( auto& layer : layers )
+			{
+				std::cout << layer.layerName << '\n';
+			}
+
+		}
+
+		auto has_layer = [ ] ( const char* layer_name, const std::vector<vk::LayerProperties>& layers )
+		{
+			for ( auto layer : layers )
+			{
+				if ( std::strcmp ( layer_name, layer.layerName ) == 0 )
+				{
+					return true;
+				}
+			}
+
+			return false;
+		};
+
+		for ( auto requested_layer_name : requested_layer_names )
+		{
+			if ( !has_layer ( requested_layer_name, layers ) )
+			{
+				throw std::runtime_error { std::string { } + "Requested layer " + requested_layer_name + " was not found!" };
+			}
+		}
+
+		auto create_instance_info = vk::InstanceCreateInfo
+		{
+			{ }, &info,
+			requested_layer_names.size ( ), &requested_layer_names.front ( ),
+			requested_extension_names.size ( ), &requested_extension_names.front ( )
+		};
+
+		instance = vk::createInstanceUnique ( create_instance_info );
+		auto debug_callback_info = vk::DebugReportCallbackCreateInfoEXT {vk::DebugReportFlagBitsEXT::eError | vk::DebugReportFlagBitsEXT::eWarning, debug_callback };
+		debug_callback_handle = instance->createDebugReportCallbackEXTUnique ( debug_callback_info );
 		//VkSurfaceKHR surface;
 		//VkResult err = glfwCreateWindowSurface ( instance, window, NULL, &surface );
 		//if ( err )
@@ -53,7 +131,25 @@ private:
 		//}
 	}
 
+	static VKAPI_ATTR VkBool32 VKAPI_CALL debug_callback (
+		VkDebugReportFlagsEXT flags,
+		VkDebugReportObjectTypeEXT objType,
+		uint64_t obj,
+		size_t location,
+		int32_t code,
+		const char* layerPrefix,
+		const char* msg,
+		void* userData )
+	{
+
+		std::cout << "validation layer: " << msg << std::endl;
+
+		return VK_FALSE;
+	}
+
 	glfw::Window window { "Test App", 800, 600 };
+	vk::UniqueInstance instance;
+	vk::UniqueDebugReportCallbackEXT debug_callback_handle;
 };
 
 int main ( )

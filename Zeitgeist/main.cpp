@@ -122,6 +122,19 @@ private:
 		instance = vk::createInstanceUnique ( create_instance_info );
 		auto debug_callback_info = vk::DebugReportCallbackCreateInfoEXT {vk::DebugReportFlagBitsEXT::eError | vk::DebugReportFlagBitsEXT::eWarning, debug_callback };
 		debug_callback_handle = instance->createDebugReportCallbackEXTUnique ( debug_callback_info );
+
+		auto devices = instance->enumeratePhysicalDevices ( );
+
+		auto properties = devices.front ( ).getProperties ( );
+		auto features = devices.front ( ).getFeatures ( );
+		auto device_type = properties.deviceType == vk::PhysicalDeviceType::eDiscreteGpu;
+		auto geometry_Shader = features.geometryShader;
+
+		auto families = devices.front ( ).getQueueFamilyProperties ( );
+		auto queue_count = families.front ( ).queueCount;
+		auto graphics_queue = families.front ( ).queueFlags & vk::QueueFlagBits::eGraphics;
+		bool found = static_cast< bool >( graphics_queue );
+
 		//VkSurfaceKHR surface;
 		//VkResult err = glfwCreateWindowSurface ( instance, window, NULL, &surface );
 		//if ( err )

@@ -7,17 +7,17 @@ Copyright (C) 2017-2018 Zachariah The Magnificent
 This file is part of Zeitgeist.
 
 Zeitgeist is free software: you can redistribute it and/or modify it under
-the terms of the GNU General Public License as published bythe Free
+the terms of the GNU General Public License as published by the Free
 Software Foundation, either version 3 of the License, or (at your option)
 any later version.
 
 Zeitgeist is distributed in the hope that it will be useful, but WITHOUT
 ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-FITNESS FOR A PARTICULAR PURPOSE.See the GNU General Public License for
+FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
 more details.
 
 You should have received a copy of the GNU General Public License along
-with Zeitgeist.If not, see <http://www.gnu.org/licenses/>.
+with Zeitgeist. If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 #include <iostream>
 #include <stdexcept>
@@ -34,7 +34,7 @@ VKAPI_ATTR VkResult VKAPI_CALL vkCreateDebugReportCallbackEXT (
 	const VkAllocationCallbacks*                pAllocator,
 	VkDebugReportCallbackEXT*                   pCallback )
 {
-	auto func = ( PFN_vkCreateDebugReportCallbackEXT ) vkGetInstanceProcAddr ( instance, "vkCreateDebugReportCallbackEXT" );
+	static auto func = ( PFN_vkCreateDebugReportCallbackEXT ) vkGetInstanceProcAddr ( instance, "vkCreateDebugReportCallbackEXT" );
 	if ( func != nullptr )
 	{
 		return func ( instance, pCreateInfo, pAllocator, pCallback );
@@ -49,7 +49,7 @@ VKAPI_ATTR void VKAPI_CALL vkDestroyDebugReportCallbackEXT (
 	VkDebugReportCallbackEXT                    callback,
 	const VkAllocationCallbacks*                pAllocator )
 {
-	auto func = ( PFN_vkDestroyDebugReportCallbackEXT ) vkGetInstanceProcAddr ( instance, "vkDestroyDebugReportCallbackEXT" );
+	static auto func = ( PFN_vkDestroyDebugReportCallbackEXT ) vkGetInstanceProcAddr ( instance, "vkDestroyDebugReportCallbackEXT" );
 	if ( func != nullptr )
 	{
 		func ( instance, callback, pAllocator );

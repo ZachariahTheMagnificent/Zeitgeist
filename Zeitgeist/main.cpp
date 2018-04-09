@@ -133,6 +133,7 @@ private:
 			}
 		}
 
+		// Brr
 		auto create_instance_info = vk::InstanceCreateInfo
 		{
 			{ }, &info,

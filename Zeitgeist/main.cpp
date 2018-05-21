@@ -28,13 +28,10 @@ with Zeitgeist. If not, see <http://www.gnu.org/licenses/>.
 #include <glfw/CPPWindow.hpp>
 #include <common/Debugging.h>
 
-VKAPI_ATTR VkResult VKAPI_CALL vkCreateDebugReportCallbackEXT (
-	VkInstance                                  instance,
-	const VkDebugReportCallbackCreateInfoEXT*   pCreateInfo,
-	const VkAllocationCallbacks*                pAllocator,
-	VkDebugReportCallbackEXT*                   pCallback )
+VKAPI_ATTR VkResult VKAPI_CALL vkCreateDebugReportCallbackEXT ( VkInstance instance, const VkDebugReportCallbackCreateInfoEXT* pCreateInfo, const VkAllocationCallbacks* pAllocator, VkDebugReportCallbackEXT* pCallback )
 {
 	static auto func = ( PFN_vkCreateDebugReportCallbackEXT ) vkGetInstanceProcAddr ( instance, "vkCreateDebugReportCallbackEXT" );
+
 	if ( func != nullptr )
 	{
 		return func ( instance, pCreateInfo, pAllocator, pCallback );
@@ -44,12 +41,10 @@ VKAPI_ATTR VkResult VKAPI_CALL vkCreateDebugReportCallbackEXT (
 		return VK_ERROR_EXTENSION_NOT_PRESENT;
 	}
 }
-VKAPI_ATTR void VKAPI_CALL vkDestroyDebugReportCallbackEXT (
-	VkInstance                                  instance,
-	VkDebugReportCallbackEXT                    callback,
-	const VkAllocationCallbacks*                pAllocator )
+VKAPI_ATTR void VKAPI_CALL vkDestroyDebugReportCallbackEXT ( VkInstance instance, VkDebugReportCallbackEXT callback, const VkAllocationCallbacks* pAllocator )
 {
 	static auto func = ( PFN_vkDestroyDebugReportCallbackEXT ) vkGetInstanceProcAddr ( instance, "vkDestroyDebugReportCallbackEXT" );
+
 	if ( func != nullptr )
 	{
 		func ( instance, callback, pAllocator );
@@ -157,12 +152,16 @@ private:
 		auto graphics_queue = families.front ( ).queueFlags & vk::QueueFlagBits::eGraphics;
 		bool found = static_cast< bool >( graphics_queue );
 
-		//VkSurfaceKHR surface;
-		//VkResult err = glfwCreateWindowSurface ( instance, window, NULL, &surface );
-		//if ( err )
-		//{
-		//	throw AAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH();
-		//}
+		VkSurfaceKHR glfw_surface_info {};
+		vk::Result result { glfwCreateWindowSurface ( static_cast< VkInstance > ( instance.get ( ) ), window.handle_, nullptr, &glfw_surface_info ) };
+
+		if ( result != vk::Result::eSuccess )
+		{
+			throw std::runtime_error { "lel" };
+		}
+
+		vk::SurfaceKHR surface_info { glfw_surface_info };
+		//vk::UniqueSurfaceKHR surface { surface_info, vk::SurfaceKHRDeleter { *instance } };
 	}
 
 	static VKAPI_ATTR VkBool32 VKAPI_CALL debug_callback (
@@ -197,6 +196,7 @@ int main ( )
 	{
 		std::cerr << "An error has occured!\n";
 		std::cerr << e.what ( ) << '\n';
+		system ( "pause" );
 		return EXIT_FAILURE;
 	}
 

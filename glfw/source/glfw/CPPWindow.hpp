@@ -57,6 +57,7 @@ namespace glfw
 
 		virtual void on_scroll ( const double xoffset, const double yoffset );
 
+	public:
 		Handle handle_;
 	};
 }
